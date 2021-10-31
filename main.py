@@ -9,6 +9,7 @@ cross_count = 0
 
 
 def new_game():
+'''Создание игрового поля'''
     for row in range(3):
         for col in range(3):
             field[row][col]['text'] = ' '
@@ -20,6 +21,7 @@ def new_game():
 
 
 def click(row, col):
+'''Функция нажатия на кнопку'''
     if game_run and field[row][col]['text'] == ' ':
         field[row][col]['text'] = 'X'
         global cross_count
@@ -31,6 +33,7 @@ def click(row, col):
 
 
 def check_win(smb):
+'''Проверка победы каждый ход'''    
     for n in range(3):
         check_line(field[n][0], field[n][1], field[n][2], smb)
         check_line(field[0][n], field[1][n], field[2][n], smb)
@@ -39,6 +42,7 @@ def check_win(smb):
 
 
 def check_line(a1,a2,a3,smb):
+'''Проверка всех возможных линий победы'''
     if a1['text'] == smb and a2['text'] == smb and a3['text'] == smb:
         a1['background'] = a2['background'] = a3['background'] = 'pink'
         global game_run
@@ -46,6 +50,7 @@ def check_line(a1,a2,a3,smb):
 
 
 def can_win(a1,a2,a3,smb):
+'''Функция, чтобы бот не пропускал победные ходы'''
     res = False
     if a1['text'] == smb and a2['text'] == smb and a3['text'] == ' ':
         a3['text'] = 'O'
@@ -60,6 +65,7 @@ def can_win(a1,a2,a3,smb):
 
 
 def computer_move():
+'''Логика поведения компьютера'''
     for n in range(3):
         if can_win(field[n][0], field[n][1], field[n][2], 'O'):
             return
